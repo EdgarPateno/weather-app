@@ -3,7 +3,7 @@ const https = require('https');
 const app = express();
 
 app.get('/', function(req, res){
-    const url = 'https://api.openweathermap.org/data/2.5/weather?q=cebu&appid=eab16427d49ab6d0bf55f161eca1f27d'
+    const url = 'https://api.openweathermap.org/data/2.5/weather?q=manila&appid=eab16427d49ab6d0bf55f161eca1f27d'
     https.get(url, function(response){
         console.log(response);
         console.log(response.statusCode); // status code 200
@@ -23,9 +23,18 @@ app.get('/', function(req, res){
             // access the key value of an array element
             // access the index of the element which is an object
             const weatherDescription = weatherData.weather[0].description;
+            const icon = weatherData.weather[0].icon;
+            const imgURL='https://openweathermap.org/img/wn/'+icon+'@2x.png';
             console.log(weatherDescription);
 
-            res.send('<h1>temperature' + ' ' + temp + ' degrees Celsius</h1>');
+
+            //res.send('<h1>temperature' + ' ' + temp + ' degrees Celsius</h1>');
+            //res.send('Weather' + ' is ' + weatherDescription);
+            res.write('<h1>temperature' + ' ' + temp + ' &deg;</h1>');
+            res.write('<p>The weather' + ' is ' + weatherDescription + '</p>');
+            res.write('<img src="' + imgURL + '"/>');
+            res.send();
+
         })
     });
     // res.send('Weather app version 1.0 Server is up and running');

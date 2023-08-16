@@ -8,3 +8,8 @@ body {
     background-color: grey;
     color: white;
 }
+
+.header {
+    height: 100vh;
+    background-color: blueviolet;
+}

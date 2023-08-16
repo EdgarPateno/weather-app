@@ -8,6 +8,8 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
+app.use(express.static(__dirname + '/public'));
+
 app.post('/', function (req, res) {
     //console.log(req.body.cityName);
     const query = req.body.cityName;
@@ -16,21 +18,23 @@ app.post('/', function (req, res) {
     //const url = 'https://api.openweathermap.org/data/2.5/weather?q=manila&appid=eab16427d49ab6d0bf55f161eca1f27d'
     const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + query + '&appid=' + apiKey + '&units=' + unit;
     https.get(url, function (response) {
-        console.log(response);
-        console.log(response.statusCode); // status code 200
+        //console.log(response);
+        //console.log(response.statusCode); // status code 200
         response.on('data', function (data) {
-            console.log(data);
+            //console.log(data);
             const weatherData = JSON.parse(data);
-            console.log(weatherData);
+            //console.log(weatherData);
 
             const temp = weatherData.main.temp;
-            console.log(temp);
+            //console.log(temp);
 
             const weatherDescription = weatherData.weather[0].description;
             const icon = weatherData.weather[0].icon;
             const imgURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png';
-            console.log(weatherDescription);
+            //console.log(weatherDescription);
 
+            res.setHeader("Content-Type", "text/html");
+            //res.write('<header><div class="header"></div></header>')
             res.write('<h1>temperature' + ' ' + temp + ' &#8451;</h1>');
             res.write('<p>The weather' + ' is ' + weatherDescription + '</p>');
             res.write('<img src="' + imgURL + '"/>');

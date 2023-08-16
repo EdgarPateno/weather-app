@@ -3,7 +3,11 @@ const https = require('https');
 const app = express();
 
 app.get('/', function(req, res){
-    const url = 'https://api.openweathermap.org/data/2.5/weather?q=manila&appid=eab16427d49ab6d0bf55f161eca1f27d'
+    const query = 'Manila';
+    const apiKey = 'eab16427d49ab6d0bf55f161eca1f27d';
+    const unit = 'metric';
+    //const url = 'https://api.openweathermap.org/data/2.5/weather?q=manila&appid=eab16427d49ab6d0bf55f161eca1f27d'
+    const url = 'https://api.openweathermap.org/data/2.5/weather?q='+query+'&appid='+apiKey+'&units='+unit;
     https.get(url, function(response){
         console.log(response);
         console.log(response.statusCode); // status code 200
@@ -30,7 +34,7 @@ app.get('/', function(req, res){
 
             //res.send('<h1>temperature' + ' ' + temp + ' degrees Celsius</h1>');
             //res.send('Weather' + ' is ' + weatherDescription);
-            res.write('<h1>temperature' + ' ' + temp + ' &deg;</h1>');
+            res.write('<h1>temperature' + ' ' + temp + ' &#8451;</h1>');
             res.write('<p>The weather' + ' is ' + weatherDescription + '</p>');
             res.write('<img src="' + imgURL + '"/>');
             res.send();

@@ -3,7 +3,19 @@ const https = require('https');
 const app = express();
 
 app.get('/', function(req, res){
-    const query = 'Manila';
+res.sendFile(__dirname + '/index.html');
+});
+
+app.post('/', function (req, res) {
+    console.log('Post request received');
+});
+
+app.listen(3000, function(req, res){
+    console.log('Server is running on the port 300');
+});
+
+/*
+const query = 'Manila';
     const apiKey = 'eab16427d49ab6d0bf55f161eca1f27d';
     const unit = 'metric';
     //const url = 'https://api.openweathermap.org/data/2.5/weather?q=manila&appid=eab16427d49ab6d0bf55f161eca1f27d'
@@ -42,9 +54,4 @@ app.get('/', function(req, res){
         })
     });
     // res.send('Weather app version 1.0 Server is up and running');
-});
-
-app.listen(3000, function(req, res){
-    console.log('Server is running on the port 300');
-});
-
+    */
